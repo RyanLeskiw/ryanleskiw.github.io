@@ -3,11 +3,15 @@ const firebaseProjectUrl = 'https://comp101-lab8-ryanleskiw-default-rtdb.firebas
 const databaseUrl = firebaseProjectUrl + 'msg.json';
 
 const submitButton = document.getElementById('submitButton');
-submitButton.onclick = submitForm; // Tell browser whenever a click happens on submitButton, call submitForm.
+if (submitButton) {
+    submitButton.onclick = submitForm; // Tell browser whenever a click happens on submitButton, call submitForm.
+}
 
-async function submitForm() {
+async function submitForm(event) {
+    event.preventDefault(); // Prevent default form submission
+    
     const name = document.getElementById('name').value.trim();
-    const message = document.getElementById('your-message').value.trim();
+    const message = document.getElementById('message').value.trim();
     const email = document.getElementById('email').value.trim();
 
 
@@ -34,3 +38,4 @@ async function submitForm() {
 
 function showThanksAlert() {
     alert("Thanks for your message. We will get back to you soon!");
+}
