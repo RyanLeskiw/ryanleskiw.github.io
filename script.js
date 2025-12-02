@@ -2,9 +2,9 @@
 const firebaseProjectUrl = 'https://comp101-lab8-ryanleskiw-default-rtdb.firebaseio.com/';
 const databaseUrl = firebaseProjectUrl + 'msg.json';
 
-const submitButton = document.getElementById('submitButton');
-if (submitButton) {
-    submitButton.onclick = submitForm; // Tell browser whenever a click happens on submitButton, call submitForm.
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', submitForm); // Tell browser whenever form is submitted, call submitForm.
 }
 
 async function submitForm(event) {
