@@ -2,20 +2,24 @@
 const firebaseProjectUrl = 'https://comp101-lab8-ryanleskiw-default-rtdb.firebaseio.com/';
 const databaseUrl = firebaseProjectUrl + 'msg.json';
 
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', submitForm); // Tell browser whenever form is submitted, call submitForm.
-}
+// Wait for DOM to be fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', submitForm);
+    }
+});
 
 async function submitForm(event) {
     event.preventDefault(); // Prevent default form submission
     
     const name = document.getElementById('name').value.trim();
-    const message = document.getElementById('message').value.trim();
+    const message = document.getElementById('your-message').value.trim();
     const email = document.getElementById('email').value.trim();
 
 
-    if (name || message) {
+    if (name && message && email) {
         const data = {name, message, email};
         try {
             const response = await fetch(databaseUrl, {
@@ -30,12 +34,22 @@ async function submitForm(event) {
                 throw new Error('Failed to send message');
             }
             showThanksAlert();
+            clearForm();
         } catch (error) {
             console.error('Error when sending message:', error);
+            alert('Failed to send message. Please try again.');
         }
+    } else {
+        alert('Please fill in all fields.');
     }
 }
 
 function showThanksAlert() {
     alert("Thanks for your message. We will get back to you soon!");
+}
+
+function clearForm() {
+    document.getElementById('name').value = '';
+    document.getElementById('your-message').value = '';
+    document.getElementById('email').value = '';
 }
